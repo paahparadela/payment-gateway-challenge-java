@@ -40,7 +40,7 @@ public class PaymentGatewayController {
         Integer.parseInt(postPaymentRequest.getExpiryMonth())).isBefore(YearMonth.now())){
       throw new DateTimeException("Expiry date must be in the future");
     }
-    
+
     return new ResponseEntity<>(paymentGatewayService.processPayment(postPaymentRequest), HttpStatus.OK);
   }
 }
