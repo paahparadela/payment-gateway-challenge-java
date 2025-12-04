@@ -3,14 +3,15 @@ package com.checkout.payment.gateway.model;
 import com.checkout.payment.gateway.enums.PaymentStatus;
 import java.util.UUID;
 
-public class GetPaymentResponse {
+public class Payment {
+
   private UUID id;
   private PaymentStatus status;
   private String cardNumberLastFour;
   private String expiryMonth;
   private String expiryYear;
   private String currency;
-  private Integer amount;
+  private int amount;
 
   public UUID getId() {
     return id;
@@ -60,24 +61,11 @@ public class GetPaymentResponse {
     this.currency = currency;
   }
 
-  public Integer getAmount() {
+  public int getAmount() {
     return amount;
   }
 
-  public void setAmount(Integer amount) {
+  public void setAmount(int amount) {
     this.amount = amount;
-  }
-
-  @Override
-  public String toString() {
-    return "GetPaymentResponse{" +
-        "id=" + id +
-        ", status=" + status +
-        ", cardNumberLastFour=" + cardNumberLastFour +
-        ", expiryMonth=" + expiryMonth +
-        ", expiryYear=" + expiryYear +
-        ", currency='" + currency + '\'' +
-        ", amount=" + amount +
-        '}';
   }
 }

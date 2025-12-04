@@ -27,20 +27,14 @@ public class PaymentGatewayController {
     this.paymentGatewayService = paymentGatewayService;
   }
 
-  @GetMapping("/payment/{id}")
-  public ResponseEntity<PostPaymentResponse> getPayment(@PathVariable UUID id) {
+  @GetMapping("/payments/{id}")
+  public ResponseEntity<GetPaymentResponse> getPayment(@PathVariable UUID id) {
     return new ResponseEntity<>(paymentGatewayService.getPaymentById(id), HttpStatus.OK);
   }
 
-  @PostMapping("/payment")
+  @PostMapping("/payments")
   public ResponseEntity<PostPaymentResponse> postPayment(@Valid @RequestBody PostPaymentRequest postPaymentRequest)
       throws Exception {
-
-    if (YearMonth.of(Integer.parseInt(postPaymentRequest.getExpiryYear()),
-        Integer.parseInt(postPaymentRequest.getExpiryMonth())).isBefore(YearMonth.now())){
-      throw new DateTimeException("Expiry date must be in the future");
-    }
-
     return new ResponseEntity<>(paymentGatewayService.processPayment(postPaymentRequest), HttpStatus.OK);
   }
 }
