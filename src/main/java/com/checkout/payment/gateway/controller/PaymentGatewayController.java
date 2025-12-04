@@ -27,12 +27,12 @@ public class PaymentGatewayController {
     this.paymentGatewayService = paymentGatewayService;
   }
 
-  @GetMapping("/payment/{id}")
-  public ResponseEntity<PostPaymentResponse> getPayment(@PathVariable UUID id) {
+  @GetMapping("/payments/{id}")
+  public ResponseEntity<GetPaymentResponse> getPayment(@PathVariable UUID id) {
     return new ResponseEntity<>(paymentGatewayService.getPaymentById(id), HttpStatus.OK);
   }
 
-  @PostMapping("/payment")
+  @PostMapping("/payments")
   public ResponseEntity<PostPaymentResponse> postPayment(@Valid @RequestBody PostPaymentRequest postPaymentRequest)
       throws Exception {
 

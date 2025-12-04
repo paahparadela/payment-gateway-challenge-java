@@ -10,8 +10,7 @@ public class PostPaymentResponse {
   private String expiryMonth;
   private String expiryYear;
   private String currency;
-  private int amount;
-
+  private Integer amount;
 
   public UUID getId() {
     return id;
@@ -27,12 +26,6 @@ public class PostPaymentResponse {
 
   public void setStatus(PaymentStatus status) {
     this.status = status;
-  }
-
-  public void setStatus(boolean authorized) {
-    this.status = PaymentStatus.AUTHORIZED;
-    if(!authorized)
-      this.status = PaymentStatus.DECLINED;
   }
 
   public String getCardNumberLastFour() {
@@ -67,11 +60,11 @@ public class PostPaymentResponse {
     this.currency = currency;
   }
 
-  public int getAmount() {
+  public Integer getAmount() {
     return amount;
   }
 
-  public void setAmount(int amount) {
+  public void setAmount(Integer amount) {
     this.amount = amount;
   }
 

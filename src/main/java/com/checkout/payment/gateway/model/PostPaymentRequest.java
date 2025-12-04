@@ -3,20 +3,12 @@ package com.checkout.payment.gateway.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.PostConstruct;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import org.slf4j.Logger;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import java.io.Serializable;
-import java.time.DateTimeException;
-import java.time.YearMonth;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = false)
@@ -40,7 +32,7 @@ public class PostPaymentRequest implements Serializable {
   private String expiryYear;
 
   @NotBlank(message = "currency is mandatory")
-  @Size(min = 3, max = 3, message = "currency must be 3 characters")
+  @Pattern(regexp = "^(BRL|EUR|GBP)$", message = "currency is invalid")
   private String currency;
 
   @NotNull(message = "amount is mandatory")
@@ -101,6 +93,7 @@ public class PostPaymentRequest implements Serializable {
     this.cvv = cvv;
   }
 
+  @Schema(hidden = true)
   @JsonProperty("expiry_date")
   public String getExpiryDate() {
     return String.format("%s/%s", expiryMonth, expiryYear);

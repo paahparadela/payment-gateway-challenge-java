@@ -4,6 +4,7 @@ import com.checkout.payment.gateway.enums.PaymentStatus;
 import com.checkout.payment.gateway.exception.EventProcessingException;
 import com.checkout.payment.gateway.mapper.PaymentMapper;
 import com.checkout.payment.gateway.model.GetPaymentResponse;
+import com.checkout.payment.gateway.model.Payment;
 import com.checkout.payment.gateway.model.PostAcquirerRequest;
 import com.checkout.payment.gateway.model.PostAcquirerResponse;
 import com.checkout.payment.gateway.model.PostPaymentRequest;
@@ -38,13 +39,14 @@ public class PaymentGatewayService {
     this.restTemplate = restTemplate;
   }
 
-  public PostPaymentResponse getPaymentById(UUID id) {
+  public GetPaymentResponse getPaymentById(UUID id) {
     LOG.debug("Requesting access to payment with ID {}", id);
-    return paymentsRepository.get(id).orElseThrow(() -> new EventProcessingException("Invalid ID"));
+    Payment payment = paymentsRepository.get(id).orElseThrow(() -> new EventProcessingException("Invalid ID"));
+    return paymentMapper.paymentToGetPaymentResponse(payment);
   }
 
   public PostPaymentResponse processPayment(PostPaymentRequest postPaymentRequest) {
-    //todo
+
     PostAcquirerRequest postAcquirerRequest = paymentMapper
         .postPaymentRequestToPostAcquirerRequest(postPaymentRequest);
 
@@ -57,9 +59,7 @@ public class PaymentGatewayService {
     PostPaymentResponse postPaymentResponse = paymentMapper
         .postPaymentRequestAndPostAcquirerResponseToPostPaymentResponse(postPaymentRequest, postAcquirerResponse);
 
-    postPaymentResponse.setId(UUID.randomUUID());
-
-    paymentsRepository.add(postPaymentResponse);
+    paymentsRepository.add(paymentMapper.postPaymentResponseToPayment(postPaymentResponse));
 
     return postPaymentResponse;
   }
