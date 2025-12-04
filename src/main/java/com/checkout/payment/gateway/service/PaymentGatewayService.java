@@ -60,8 +60,15 @@ public class PaymentGatewayService {
     String paymentResourceUrl = acquirerApiBaseUrl + "/payments";
 
     HttpEntity<PostAcquirerRequest> request = new HttpEntity<>(postAcquirerRequest);
-    PostAcquirerResponse postAcquirerResponse = restTemplate
-        .postForObject(paymentResourceUrl, request, PostAcquirerResponse.class);
+
+    PostAcquirerResponse postAcquirerResponse;
+
+    try {
+      postAcquirerResponse = restTemplate
+          .postForObject(paymentResourceUrl, request, PostAcquirerResponse.class);
+    } catch (Exception ex) {
+      postAcquirerResponse = new PostAcquirerResponse(false, null);
+    }
 
     PostPaymentResponse postPaymentResponse = paymentMapper
         .postPaymentRequestAndPostAcquirerResponseToPostPaymentResponse(postPaymentRequest, postAcquirerResponse);
