@@ -103,7 +103,7 @@ public class PostPaymentRequest implements Serializable {
 
   @JsonProperty("expiry_date")
   public String getExpiryDate() {
-    return String.format("%b/%b", expiryMonth, expiryYear);
+    return String.format("%s/%s", expiryMonth, expiryYear);
   }
 
   @Override

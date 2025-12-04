@@ -36,9 +36,9 @@ class PaymentGatewayControllerTest {
     payment.setAmount(10);
     payment.setCurrency("USD");
     payment.setStatus(PaymentStatus.AUTHORIZED);
-    payment.setExpiryMonth(12);
-    payment.setExpiryYear(2024);
-    payment.setCardNumberLastFour(4321);
+    payment.setExpiryMonth("12");
+    payment.setExpiryYear("2024");
+    payment.setCardNumberLastFour("4321");
 
     paymentsRepository.add(payment);
 
