@@ -10,6 +10,11 @@ public class PostAcquirerResponse implements Serializable {
   @JsonProperty("authorization_code")
   private String authorizationCode;
 
+  public PostAcquirerResponse(boolean authorized, String authorizationCode) {
+    this.authorized = authorized;
+    this.authorizationCode = authorizationCode;
+  }
+
   public boolean isAuthorized() {
     return authorized;
   }
