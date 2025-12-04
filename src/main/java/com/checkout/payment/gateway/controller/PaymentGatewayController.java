@@ -35,12 +35,6 @@ public class PaymentGatewayController {
   @PostMapping("/payments")
   public ResponseEntity<PostPaymentResponse> postPayment(@Valid @RequestBody PostPaymentRequest postPaymentRequest)
       throws Exception {
-
-    if (YearMonth.of(Integer.parseInt(postPaymentRequest.getExpiryYear()),
-        Integer.parseInt(postPaymentRequest.getExpiryMonth())).isBefore(YearMonth.now())){
-      throw new DateTimeException("Expiry date must be in the future");
-    }
-
     return new ResponseEntity<>(paymentGatewayService.processPayment(postPaymentRequest), HttpStatus.OK);
   }
 }

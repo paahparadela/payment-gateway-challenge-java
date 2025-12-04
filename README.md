@@ -25,7 +25,7 @@ For documentation openAPI is included, and it can be found under the following u
 **Feel free to change the structure of the solution, use a different library etc.**
 
 ## Design and decisions made
-I tried to keep everything as simple and clean as possible, like Clean Code suggests, and tried to follow Hateoas principles for API Design.
+I tried to keep everything as simple and clean as possible, like Clean Code and SOLID suggest, and tried to follow Hateoas principles for API Design.
 I used some frameworks like Java Bean Validation (to validate attributes) and MapStruct (to parse one class to another).
 Also, below there are some tests I designed before having started coding, however I did not implemented all of them.
 
